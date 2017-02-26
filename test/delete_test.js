@@ -12,40 +12,40 @@ describe('Deleting a user', () => {
         });
     });
 
-    it('model instance remove', (done) => {
-        joe.remove()
+    function assertNull(operation, done) {
+        operation
         .then(() => User.findOne({ name: 'Joe' }))
         .then((user) => {
             assert(user === null);
             done();
         });
+    }
 
+    it('model instance remove', (done) => {
+        assertNull(
+            joe.remove(),
+            done
+        );
     });
 
     it('model class remove', (done) => {
-        User.remove({ name: 'Joe' })
-        .then(() => User.findOne({ name: 'Joe' }))
-        .then((user) => {
-            assert(user === null);
-            done();
-        });
+        assertNull(
+            User.remove({ name: 'Joe' }),
+            done
+        );
     });
 
     it('model class findOneAndRemove', (done) => {
-        User.findOneAndRemove({ name: 'Joe' })
-        .then(() => User.findOne({ name: 'Joe' }))
-        .then((user) => {
-            assert(user === null);
-            done();
-        });
+        assertNull(
+            User.findOneAndRemove({ name: 'Joe' }),
+            done
+        );
     });
 
     it('model class findByIdAndRemove', (done) => {
-        User.findByIdAndRemove(joe._id)
-        .then(() => User.findOne({ name: 'Joe' }))
-        .then((user) => {
-            assert(user === null);
-            done();
-        });
+        assertNull(
+            User.findByIdAndRemove(joe._id),
+            done
+        );
     });
 });
