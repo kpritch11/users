@@ -42,4 +42,26 @@ describe('Associations', () => {
             done();
         });
     });
+
+    it('saves a full relation graph', (done) => {
+        User.findOne({ name: 'Joe' })
+        .populate({
+            path: 'blogPosts',
+            populate: {
+                path: 'comments',
+                model: 'comment', // model is only required when path != model
+                populate: {
+                    path: 'user'
+                }
+            }
+        })
+        .then((user) => {
+            assert(user.name === 'Joe');
+            assert(user.blogPosts[0].title === 'JS Rules');
+            assert(user.blogPosts[0].content === 'Yes it does!');
+            assert(user.blogPosts[0].comments[0].content === 'Congrats on the great post');
+            assert(user.blogPosts[0].comments[0].user.name === 'Alex');
+            done();
+        });
+    });
 });
