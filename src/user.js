@@ -14,7 +14,7 @@ const UserSchema = new Schema({
         }
     },
     posts: [PostSchema],
-    age: Number
+    likes: Number
 });
 
 UserSchema.virtual('postCount').get(function() { // use function() instead of () => to access this
