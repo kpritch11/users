@@ -12,6 +12,15 @@ const BlogPostSchema = new Schema({
     }]
 });
 
+BlogPostSchema.pre('remove', function(next) {
+    console.log('BlogPost.pre()');
+    const Comment = mongoose.model('comment');
+    Comment.remove({ _id: { $in: this.comments } })
+    .then(() => {
+        next();
+    });
+});
+
 const BlogPost = mongoose.model('blogPost', BlogPostSchema);
 
 module.exports = BlogPost;
