@@ -52,7 +52,7 @@ describe('Middleware', () => {
         });
     });
 
-    xit('removes a full relation graph', (done) => {
+    /*it('removes a full relation graph', (done) => {
         joe.remove()
         .then(() => BlogPost.findOne({ title: 'JS Rules' }))
         .then((element) => {
@@ -63,5 +63,5 @@ describe('Middleware', () => {
             assert(element === null);
             done();
         });
-    });
+    });*/
 });
